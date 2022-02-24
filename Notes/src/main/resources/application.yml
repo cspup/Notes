@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/notes?serverTimezone=UTC&autoReconnect=true
+    username: dev
+    password: 1
+    type: com.zaxxer.hikari.HikariDataSource
+    # HikariCP 连接池
+    hikari:
+      connection-timeout: 30000
+      minimum-idle: 5
+      maximum-pool-size: 15
+      idle-timeout: 600000
+      max-lifetime: 28740000
+      auto-commit: true
+      pool-name: NotesCP
+      connection-test-query: select 1
+
+mybatis:
+  type-aliases-package: com.csp.notes.entity
+  mapper-locations: classpath:com/csp/notes/dao/mapper/**/*.xml

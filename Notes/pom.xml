@@ -12,7 +12,7 @@
     <artifactId>Notes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Notes</name>
-    <description>一个云笔记</description>
+    <description>记事本</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -38,6 +38,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
