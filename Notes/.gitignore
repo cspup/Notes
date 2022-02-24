@@ -36,4 +36,5 @@ build/
 .mvn
 mvnw
 mvnw.cmd
-!/node_modules/
+# npm
+node_modules
