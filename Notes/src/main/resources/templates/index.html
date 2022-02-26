@@ -1,0 +1,81 @@
+<!DOCTYPE  html >
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.26.0/axios.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/qs/6.10.3/qs.min.js"></script>
+</head>
+<style>
+html,body {
+    height: 100%;
+}
+#note-view {
+    height: 100%;
+}
+#note-view textarea{
+    resize: none;
+    border: 1px black;
+    height: 98%;
+    width: 99%;
+}
+</style>
+
+<body>
+    <div id="note-view">
+        <label for="note"></label><textarea autofocus id="note" th:text="${content}"></textarea>
+    </div>
+
+
+    <script >
+        let label;
+        window.onload = function () {
+            label = window.location.pathname;
+
+            if (label.length<=1){
+                getLabel();
+            }else {
+                label = label.substring(1,label.length);
+            }
+            console.log(label)
+
+            // var content = th:text="${obj}";
+
+            // document.getElementById("note").value =
+
+            const textArea = document.getElementById("note");
+            textArea.addEventListener('input',function () {
+                console.log(this.value);
+                createNote(this.value);
+            })
+        }
+
+
+        function createNote(content){
+            const qs = Qs;
+            axios({
+                url: '/'+label,
+                method: 'post',
+                data: qs.stringify({content: content})
+            }).then(function (response){
+                // console.log(response)
+            }).catch(function (error){
+                console.log(error)
+            })
+        }
+        function getLabel(){
+            axios({
+                url: '/getLabel',
+                method: 'get',
+            }).then(function (response){
+                label = response.data;
+                window.location.replace("/"+label);
+            }).catch(function (error){
+                console.log(error)
+            })
+        }
+    </script>
+</body>
+</html>

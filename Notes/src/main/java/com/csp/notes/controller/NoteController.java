@@ -2,10 +2,7 @@ package com.csp.notes.controller;
 
 import com.csp.notes.entity.Note;
 import com.csp.notes.service.NoteService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author csp
@@ -20,6 +17,12 @@ public class NoteController {
     NoteController(NoteService noteService){
 
         this.noteService = noteService;
+    }
+
+
+    @RequestMapping(value = "/{label}",method = RequestMethod.POST)
+    public void redirect(@PathVariable(value = "label") String label,@RequestParam String content){
+        noteService.createNote(content,label);
     }
 
     /**

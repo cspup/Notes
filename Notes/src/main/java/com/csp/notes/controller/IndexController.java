@@ -1,12 +1,12 @@
 package com.csp.notes.controller;
 
 import com.csp.notes.service.LabelService;
+import com.csp.notes.service.NoteService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author csp
@@ -16,24 +16,18 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class IndexController {
 
-    final private LabelService labelService;
-    IndexController (LabelService labelService){
-        this.labelService = labelService;
+    final private NoteService noteService;
+
+    IndexController(NoteService noteService) {
+        this.noteService = noteService;
     }
 
-    @RequestMapping(value = "/")
-    public String redirect(HttpServletRequest request,HttpServletResponse response){
-        String label = labelService.generateLabel();
-        response.addHeader("label",label);
-        return "redirect:/"+label;
+
+    @RequestMapping(value = "/{label}", method = RequestMethod.GET)
+    public String index(@PathVariable String label, ModelMap model) {
+        String content = noteService.getLastContent(label);
+        model.addAttribute("content", content);
+        return "index";
     }
 
-    @RequestMapping(value = "/sdsds/{label}")
-    public String redirect(@PathVariable("label") String label, HttpServletResponse response){
-        if (label.isEmpty()){
-            label = labelService.generateLabel();
-        }
-        response.addHeader("label",label);
-        return "/index.html";
-    }
 }

@@ -1,10 +1,14 @@
 package com.csp.notes.service;
 
 import com.csp.notes.entity.Note;
+import com.csp.notes.utils.SqlUtil;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
 
 /**
  * @author csp
@@ -30,5 +34,16 @@ public class NoteService {
         Object[] objects = new Object[]{content,label};
         jdbcTemplate.update(sql,objects);
         return note;
+    }
+
+    public String getLastContent(String label){
+        String sql = "SELECT content FROM note WHERE label = ? ORDER BY id desc limit 1";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        sql = SqlUtil.toSql(sql,label);
+        try{
+            return jdbcTemplate.queryForObject(sql,String.class);
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 }
