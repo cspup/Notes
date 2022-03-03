@@ -6,10 +6,10 @@ spring:
       enabled: true
       additional-paths: src/main/java
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/notes?serverTimezone=UTC&autoReconnect=true
-    username: notes
-    password: 1
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/notes?serverTimezone=UTC&autoReconnect=true
+#    username: notes
+#    password: 1
     type: com.zaxxer.hikari.HikariDataSource
     # HikariCP 连接池
     hikari:
@@ -21,6 +21,8 @@ spring:
       auto-commit: true
       pool-name: NotesCP
       connection-test-query: select 1
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:notes.db
 mybatis:
   type-aliases-package: com.csp.notes.entity
   mapper-locations: classpath:com/csp/notes/dao/mapper/**/*.xml
