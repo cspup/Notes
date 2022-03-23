@@ -1,7 +1,4 @@
-package com.csp.notes.utils;
-
-import java.sql.PreparedStatement;
-import java.util.List;
+package com.cspup.notes.utils;
 
 /**
  * @author csp

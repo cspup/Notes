@@ -1,7 +1,6 @@
-package com.csp.notes.controller;
+package com.cspup.notes.controller;
 
-import com.csp.notes.service.LabelService;
-import com.csp.notes.service.NoteService;
+import com.cspup.notes.service.NoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;

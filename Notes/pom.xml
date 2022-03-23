@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.csp</groupId>
-    <artifactId>Notes</artifactId>
+    <artifactId>notes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Notes</name>
+    <name>notes</name>
     <description>记事本</description>
     <properties>
         <java.version>11</java.version>
@@ -59,6 +59,7 @@
 
 
 
+
     </dependencies>
 
     <build>
@@ -81,6 +82,28 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!-- https://mvnrepository.com/artifact/com.google.cloud.tools/jib-maven-plugin -->
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <from>
+                        <image>amazoncorretto:11-alpine</image>
+                    </from>
+                    <to>
+                        <!--构建镜像名称，这里我使用maven中定义的项目名称-->
+                        <image>cspup/notes</image>
+                        <!--Docker 镜像的 tag 这里使用maven定义的版本号-->
+                        <tags>
+                            <tag>
+                                ${project.version}
+                            </tag>
+                        </tags>
+                    </to>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

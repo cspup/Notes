@@ -1,14 +1,12 @@
-package com.csp.notes.service;
+package com.cspup.notes.service;
 
-import com.csp.notes.entity.Note;
-import com.csp.notes.utils.SqlUtil;
+import com.cspup.notes.entity.Note;
+import com.cspup.notes.utils.SqlUtil;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
 
 /**
  * @author csp
@@ -24,7 +22,7 @@ public class NoteService {
         this.dataSource = dataSource;
     }
 
-    public Note createNote(String content,String label){
+    public Note createNote(String content, String label){
         Note note = new Note();
         note.setContent(content);
         note.setLabel(label);

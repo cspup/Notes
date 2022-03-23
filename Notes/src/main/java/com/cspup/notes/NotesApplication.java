@@ -1,4 +1,4 @@
-package com.csp.notes;
+package com.cspup.notes;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

@@ -1,4 +1,4 @@
-package com.csp.notes.dao;
+package com.cspup.notes.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 

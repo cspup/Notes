@@ -1,4 +1,4 @@
-package com.csp.notes;
+package com.cspup.notes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

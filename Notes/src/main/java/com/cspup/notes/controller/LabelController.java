@@ -1,6 +1,6 @@
-package com.csp.notes.controller;
+package com.cspup.notes.controller;
 
-import com.csp.notes.service.LabelService;
+import com.cspup.notes.service.LabelService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

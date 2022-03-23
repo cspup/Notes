@@ -1,7 +1,7 @@
-package com.csp.notes.controller;
+package com.cspup.notes.controller;
 
-import com.csp.notes.entity.Note;
-import com.csp.notes.service.NoteService;
+import com.cspup.notes.entity.Note;
+import com.cspup.notes.service.NoteService;
 import org.springframework.web.bind.annotation.*;
 
 /**

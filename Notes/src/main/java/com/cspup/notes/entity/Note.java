@@ -1,4 +1,4 @@
-package com.csp.notes.entity;
+package com.cspup.notes.entity;
 
 /**
  * @author csp

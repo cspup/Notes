@@ -1,4 +1,4 @@
-package com.csp.notes.service;
+package com.cspup.notes.service;
 
 import org.springframework.stereotype.Service;
 
