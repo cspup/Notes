@@ -5,79 +5,112 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Note</title>
-<!--    <script th:src="@{/js/axios.min.js}"></script>-->
-<!--    <script th:src="@{/js/qs.min.js}"></script>-->
     <script src="/js/axios.min.js"></script>
     <script src="/js/qs.min.js"></script>
 </head>
 <style>
-html,body {
-    height: 100%;
-}
-#note-view {
-    height: 100%;
-}
-#note-view textarea{
-    resize: none;
-    border: 1px black;
-    height: 98%;
-    width: 99%;
-}
+    html, body {
+        height: 100%;
+    }
+
 </style>
 
 <body>
-    <div id="note-view">
-        <label for="note"></label><textarea autofocus id="note" th:text="${content}"></textarea>
-    </div>
+<!-- Include Quill stylesheet -->
+<link href="/css/quill.snow.css" rel="stylesheet">
+
+<!-- Create the toolbar container -->
+<div id="toolbar">
+    <button class="ql-bold">Bold</button>
+    <button class="ql-italic">Italic</button>
+</div>
+
+<!-- Create the editor container -->
+<div id="editor">
+    <p>Hello World!</p>
+</div>
+
+<!-- Include the Quill library -->
+<script src="/js/quill.js"></script>
+<!-- Initialize Quill editor -->
 
 
-    <script >
-        let label;
-        window.onload = function () {
-            label = window.location.pathname;
+<script>
+    let label;
+    const pathname = window.location.pathname;
+    if (pathname.length <= 1) {
+        getLabel();
+    } else {
+        label = pathname.substring(1, pathname.length);
+    }
+    console.log(label)
 
-            if (label.length<=1){
-                getLabel();
-            }else {
-                label = label.substring(1,label.length);
-            }
-            console.log(label)
+    function createNote(content) {
+        const qs = Qs;
+        axios({
+            url: '/' + label,
+            method: 'post',
+            data: qs.stringify({content: content})
+        }).then(function (response) {
+            // console.log(response)
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
 
-            // var content = th:text="${obj}";
+    function createNoteDelta(delta,label) {
+        axios({
+            url: '/' + label,
+            method: 'post',
+            data: {'content': delta}
+        }).then(function (response) {
+            // console.log(response)
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
 
-            // document.getElementById("note").value =
+    function getLabel() {
+        axios({
+            url: '/getLabel',
+            method: 'get',
+        }).then(function (response) {
+            label = response.data;
+            window.location.replace("/" + label);
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
 
-            const textArea = document.getElementById("note");
-            textArea.addEventListener('input',function () {
-                console.log(this.value);
-                createNote(this.value);
-            })
+    function getNote(editor) {
+        axios({
+            url: '/note/'+ label,
+            method: 'get',
+        }).then(function (response) {
+            const data = response.data;
+            editor.setContents(data['content']['ops'])
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
+
+    // 初始化
+    var editor = new Quill('#editor', {
+        modules: {toolbar: '#toolbar'},
+        theme: 'snow',
+    });
+
+    getNote(editor);
+
+    editor.on('text-change', function (delta, oldDelta, source) {
+        if (source === 'api') {
+            console.log("An API call triggered this change.");
+        } else if (source === 'user') {
+            createNoteDelta(editor.getContents(),label)
         }
+    });
 
 
-        function createNote(content){
-            const qs = Qs;
-            axios({
-                url: '/'+label,
-                method: 'post',
-                data: qs.stringify({content: content})
-            }).then(function (response){
-                // console.log(response)
-            }).catch(function (error){
-                console.log(error)
-            })
-        }
-        function getLabel(){
-            axios({
-                url: '/getLabel',
-                method: 'get',
-            }).then(function (response){
-                label = response.data;
-                window.location.replace("/"+label);
-            }).catch(function (error){
-                console.log(error)
-            })
-        }
-    </script>
+</script>
 </body>
 </html>

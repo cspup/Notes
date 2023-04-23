@@ -21,9 +21,15 @@ public class NoteController {
 
 
     @RequestMapping(value = "/{label}",method = RequestMethod.POST)
-    public void redirect(@PathVariable(value = "label") String label,@RequestParam String content){
+    public void redirect(@PathVariable(value = "label") String label,@RequestBody String content){
         noteService.createNote(content,label);
     }
+
+    @RequestMapping(value = "/note/{label}",method = RequestMethod.GET)
+    public String getNote(@PathVariable(value = "label") String label){
+        return noteService.getLastContent(label);
+    }
+
 
     /**
      * 接收application/x-www-form-urlencoded和multipart/form-data格式的参数，可不用@RequestParam
